@@ -8,19 +8,7 @@ var morgan = require('morgan')
 var tunnel = require('tunnel-ssh');
 var cors = require('cors')
 // let config = require('./config');
-const https = require('https');
 const fs = require('fs');
-
-const options = {
-	key: fs.readFileSync('key.pem'),
-	cert: fs.readFileSync('cert.pem')
-  };
-  
-  https.createServer(options, function (req, res) {
-	res.writeHead(200);
-	res.end("hello world\n");
-  }).listen(8100);
-
 
 //to import routes
 const qualityRoutes = require('./routes/qualityRoutes');
@@ -47,18 +35,18 @@ app.use(cors())
 var responseGenerator = require('./libs/responseGenerator');
 var sql = require('mysql')
 var connection = sql.createConnection({
-// 	// 	//properties
-// 	// 	// host: '43.249.233.206',
-// 	// 	// port:12345,
-// 	// 	// user: 'gpl',
-// 	// 	// password: 'VG@glory23',
-// 	// 	// database: 'myDB',
-// 	// 	//connectionLimit : 1000,
-// 	//         //waitForConnections : true,
-// 	// 		//queueLimit :0,
-// 	// 		//debug    :  true,
-// 	//        // wait_timeout : 28800,
-// 	//       //  connect_timeout :10000,
+	// 	// 	//properties
+	// 	// 	// host: '43.249.233.206',
+	// 	// 	// port:12345,
+	// 	// 	// user: 'gpl',
+	// 	// 	// password: 'VG@glory23',
+	// 	// 	// database: 'myDB',
+	// 	// 	//connectionLimit : 1000,
+	// 	//         //waitForConnections : true,
+	// 	// 		//queueLimit :0,
+	// 	// 		//debug    :  true,
+	// 	//        // wait_timeout : 28800,
+	// 	//       //  connect_timeout :10000,
 
 	// local sql server
 	host: 'localhost',
@@ -66,17 +54,16 @@ var connection = sql.createConnection({
 	user: 'root',
 	password: '1234',
 	database: 'gfl',
-	timeout: 60000000,
-	waitForConnections : true,
-	
+	timeout: 60000000
+
 
 	//for aws 
 	
-	// host: 'Mysql@localhost:3306@ec2-13-234-17-138.ap-south-1.compute.amazonaws.com',
-	// user: 'root',
-	// password: 'gloryTech@@',
-	// database: 'gfl_schema',
-	// timeout: 60000000
+	host: 'Mysql@localhost:3306@ec2-13-234-17-138.ap-south-1.compute.amazonaws.com',
+	user: 'root',
+	password: 'gloryTech@@',
+	database: 'gfl_schema',
+	timeout: 60000000
 });
 
 
@@ -103,7 +90,7 @@ var connection = sql.createConnection({
 // 		database: 'gfl_schema',
 // 		//   charset  : 'utf8'
 // 	});
-	global.connection = connection;
+global.connection = connection;
 // 	connection.connect();
 
 
@@ -111,7 +98,7 @@ var connection = sql.createConnection({
 
 
 // function handleDisconnect() {
-	// connection = sql.createConnection(connection)};
+// connection = sql.createConnection(connection)};
 
 // connection.connect(function (error) {
 // 	//callback function
