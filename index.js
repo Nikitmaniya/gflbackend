@@ -8,7 +8,19 @@ var morgan = require('morgan')
 var tunnel = require('tunnel-ssh');
 var cors = require('cors')
 // let config = require('./config');
+const https = require('https');
 const fs = require('fs');
+
+
+const options = {
+	key: fs.readFileSync('key.pem'),
+	cert: fs.readFileSync('cert.pem')
+  };
+  
+  https.createServer(options, function (req, res) {
+	res.writeHead(200);
+	res.end("hello world\n");
+  }).listen(8100);
 
 //to import routes
 const qualityRoutes = require('./routes/qualityRoutes');
