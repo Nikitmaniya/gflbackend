@@ -7,10 +7,8 @@ var sql = require('mysql')
 var morgan = require('morgan')
 var tunnel = require('tunnel-ssh');
 var cors = require('cors')
-const https = require('https');
-const fs = require('fs');
 // let config = require('./config');
-
+const fs = require('fs');
 
 //to import routes
 const qualityRoutes = require('./routes/qualityRoutes');
@@ -51,21 +49,20 @@ var connection = sql.createConnection({
 // 	//       //  connect_timeout :10000,
 
 	// local sql server
-	host: 'dyeing.gloryautotech.com',
-	user: 'root',
-	port: 3306,
-	password: '1234',
-	database: 'gfl',
-	timeout: 60000000
+	// host: 'localhost',
+	// user: 'root',
+	// password: 'Rootuser',
+	// database: 'gfl_schema',
+	// timeout: 60000000
 	
 
 	//for aws 
 	
-	// host: 'Mysql@dyeing.gloryautotech.com:3306@ec2-13-234-17-138.ap-south-1.compute.amazonaws.com',
-	// user: 'root',
-	// password: 'gloryTech@@',
-	// database: 'gfl_schema',
-	// timeout: 60000000
+	host: 'Mysql@localhost:3306@ec2-13-234-17-138.ap-south-1.compute.amazonaws.com',
+	user: 'root',
+	password: 'gloryTech@@',
+	database: 'gfl_schema',
+	timeout: 60000000
 });
 
 
@@ -77,7 +74,7 @@ var connection = sql.createConnection({
 // 	port: 22, // not sure if its right
 // 	// dstHost:'ec2-13-126-209-21.ap-south-1.compute.amazonaws.com',// not sure if its right
 // 	dstPort: 3306, // not sure if its right
-// 	dyeing.gloryautotech.com: '127.0.0.1', // not sure if its right
+// 	localHost: '127.0.0.1', // not sure if its right
 // 	localPort: 27000 // not sure if its right
 // };
 
@@ -146,19 +143,6 @@ app.use('/', productionPlanningRoutes);
 
 app.use('/', soundRoutes);
 
-// app.listen(app.get('port'), function () {
-// 	console.log("Node app is running at dyeing.gloryautotech.com:" + app.get('port'))
-// })
-
-const options = {
-	key: fs.readFileSync('key.pem'),
-	cert: fs.readFileSync('cert.pem')
-  };
-
-// https.createServer(options, function (req, res) {
-// 	res.writeHead(200);
-// 	res.end("hello world\n");
-//   }).listen(8100);
-
-const httpsServer = https.createServer(options, app);
-httpsServer.listen(8040, 'dyeing.gloryautotech.com');
+app.listen(app.get('port'), function () {
+	console.log("Node app is running at localhost:" + app.get('port'))
+})

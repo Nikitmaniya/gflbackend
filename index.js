@@ -7,13 +7,9 @@ var sql = require('mysql')
 var morgan = require('morgan')
 var tunnel = require('tunnel-ssh');
 var cors = require('cors')
+// let config = require('./config');
 const https = require('https');
 const fs = require('fs');
-// let config = require('./config');
-
-
-
-
 
 //to import routes
 const qualityRoutes = require('./routes/qualityRoutes');
@@ -54,10 +50,10 @@ var connection = sql.createConnection({
 // 	//       //  connect_timeout :10000,
 
 //local sql server
-	host: 'dyeing.gloryautotech.com',
+	host: 'localhost',
 	port: 3306,
 	user: 'root',
-	password: '1234',
+	password: '',
 	database: 'gfl',
 	timeout: 60000000
 
@@ -79,7 +75,7 @@ var connection = sql.createConnection({
 // 	port: 22, // not sure if its right
 // 	// dstHost:'ec2-13-126-209-21.ap-south-1.compute.amazonaws.com',// not sure if its right
 // 	dstPort: 3306, // not sure if its right
-// 	dyeing.gloryautotech.com: '127.0.0.1', // not sure if its right
+// 	localHost: '127.0.0.1', // not sure if its right
 // 	localPort: 27000, // not sure if its right
 // 	timeout: 60000000
 // };
@@ -150,7 +146,7 @@ app.use('/', productionPlanningRoutes);
 app.use('/', soundRoutes);
 
 // app.listen(app.get('port'), function () {
-// 	console.log("Node app is running at dyeing.gloryautotech.com:" + app.get('port'))
+// 	console.log("Node app is running at localhost:" + app.get('port'))
 // })
 
 const options = {
@@ -158,10 +154,10 @@ const options = {
 	cert: fs.readFileSync('cert.pem')
   };
 
-// https.createServer(options, function (req, res) {
+//   https.createServer(options, function (req, res) {
 // 	res.writeHead(200);
 // 	res.end("hello world\n");
-//   }).listen(8100);
+//   }).listen(8100);  
 
-const httpsServer = https.createServer(options, app);
-httpsServer.listen(8100, 'dyeing.gloryautotech.com');
+  const httpsServer = https.createServer(options, app);
+httpsServer.listen(8100, 'localhost');
