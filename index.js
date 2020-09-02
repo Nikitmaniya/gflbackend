@@ -7,8 +7,13 @@ var sql = require('mysql')
 var morgan = require('morgan')
 var tunnel = require('tunnel-ssh');
 var cors = require('cors')
-// let config = require('./config');
+const https = require('https');
 const fs = require('fs');
+// let config = require('./config');
+
+
+
+
 
 //to import routes
 const qualityRoutes = require('./routes/qualityRoutes');
@@ -35,39 +40,39 @@ app.use(cors())
 var responseGenerator = require('./libs/responseGenerator');
 var sql = require('mysql')
 var connection = sql.createConnection({
-	// 	// 	//properties
-	// 	// 	// host: '43.249.233.206',
-	// 	// 	// port:12345,
-	// 	// 	// user: 'gpl',
-	// 	// 	// password: 'VG@glory23',
-	// 	// 	// database: 'myDB',
-	// 	// 	//connectionLimit : 1000,
-	// 	//         //waitForConnections : true,
-	// 	// 		//queueLimit :0,
-	// 	// 		//debug    :  true,
-	// 	//        // wait_timeout : 28800,
-	// 	//       //  connect_timeout :10000,
+// 	// 	//properties
+// 	// 	// host: '43.249.233.206',
+// 	// 	// port:12345,
+// 	// 	// user: 'gpl',
+// 	// 	// password: 'VG@glory23',
+// 	// 	// database: 'myDB',
+// 	// 	//connectionLimit : 1000,
+// 	//         //waitForConnections : true,
+// 	// 		//queueLimit :0,
+// 	// 		//debug    :  true,
+// 	//        // wait_timeout : 28800,
+// 	//       //  connect_timeout :10000,
 
-	//local sql server
+//local sql server
 	host: 'localhost',
 	port: 3306,
 	user: 'root',
-	password: '1234',
+	password: '',
 	database: 'gfl',
 	timeout: 60000000
 
-	//for aws 
-	// host: 'ec2-13-127-5-16.ap-south-1.compute.amazonaws.com',
-	// user: 'root',
-	// password: 'Rootuser',
-	// database: 'gfl_backend',
-	// timeout: 60000000
+		//for aws 
+		// host: 'ec2-13-127-5-16.ap-south-1.compute.amazonaws.com',
+		// user: 'root',
+		// password: 'Rootuser',
+		// database: 'gfl_backend',
+		// timeout: 60000000
 });
 
 
 // configg = {
 // 	username: 'ec2-user',
-
+	
 // 	// password:'password123',
 // 	privateKey: fs.readFileSync('./aws_key/my-second-server.pem'),
 // 	host: 'ec2-13-234-17-138.ap-south-1.compute.amazonaws.com', // not sure if its right
@@ -91,7 +96,7 @@ var connection = sql.createConnection({
 // 		//   charset  : 'utf8'
 // 	});
 global.connection = connection;
-connection.connect();
+	connection.connect();
 
 
 // })
@@ -144,6 +149,19 @@ app.use('/', productionPlanningRoutes);
 
 app.use('/', soundRoutes);
 
-app.listen(app.get('port'), function () {
-	console.log("Node app is running at localhost:" + app.get('port'))
-})
+// app.listen(app.get('port'), function () {
+// 	console.log("Node app is running at localhost:" + app.get('port'))
+// })
+
+const options = {
+	key: fs.readFileSync('key.pem'),
+	cert: fs.readFileSync('cert.pem')
+  };
+
+// https.createServer(options, function (req, res) {
+// 	res.writeHead(200);
+// 	res.end("hello world\n");
+//   }).listen(8100);
+
+const httpsServer = https.createServer(options, app);
+httpsServer.listen(8100, 'localhost');
