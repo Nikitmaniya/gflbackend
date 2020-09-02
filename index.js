@@ -54,7 +54,7 @@ var connection = sql.createConnection({
 // 	//       //  connect_timeout :10000,
 
 //local sql server
-	host: 'localhost',
+	host: 'dyeing.gloryautotech.com',
 	port: 3306,
 	user: 'root',
 	password: '1234',
@@ -79,7 +79,7 @@ var connection = sql.createConnection({
 // 	port: 22, // not sure if its right
 // 	// dstHost:'ec2-13-126-209-21.ap-south-1.compute.amazonaws.com',// not sure if its right
 // 	dstPort: 3306, // not sure if its right
-// 	localHost: '127.0.0.1', // not sure if its right
+// 	dyeing.gloryautotech.com: '127.0.0.1', // not sure if its right
 // 	localPort: 27000, // not sure if its right
 // 	timeout: 60000000
 // };
@@ -150,7 +150,7 @@ app.use('/', productionPlanningRoutes);
 app.use('/', soundRoutes);
 
 // app.listen(app.get('port'), function () {
-// 	console.log("Node app is running at localhost:" + app.get('port'))
+// 	console.log("Node app is running at dyeing.gloryautotech.com:" + app.get('port'))
 // })
 
 const options = {
@@ -164,4 +164,4 @@ const options = {
 //   }).listen(8100);
 
 const httpsServer = https.createServer(options, app);
-httpsServer.listen(8100, 'localhost');
+httpsServer.listen(8100, 'dyeing.gloryautotech.com');

@@ -1,4 +1,4 @@
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getSlaveIds`(IN groupId integer)
+CREATE DEFINER=`root`@`dyeing.gloryautotech.com` PROCEDURE `getSlaveIds`(IN groupId integer)
 BEGIN
 
 WITH RECURSIVE category_path (user_id) AS
